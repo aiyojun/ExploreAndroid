@@ -1,0 +1,16 @@
+buildscript {
+	// println("-- buildscript ...")
+	repositories {
+		// println("-- buildscript-repositories ...")
+		google()
+		mavenCentral()
+	}
+	dependencies {
+		// println("-- buildscript-dependencies ...")
+		classpath "com.android.tools.build:gradle:7.0.0"
+	}
+}
+
+task clean(type: Delete) {
+	delete rootProject.buildDir
+}
