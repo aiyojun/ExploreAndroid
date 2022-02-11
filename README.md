@@ -64,3 +64,21 @@ $ANDROID_SDK_ROOT/emulator/emulator @the12
 ### 删除模拟器
 $ANDROID_SDK_ROOT/tools/bin/avdmanager delete avd -n the12
 ```
+
+## Android文件系统分析
+
+```shell
+/system  # 一般存在于vendor.img
+  /bin   # 所有的命令行工具
+  /lib64 # 所有系统级别的so库文件
+/storage/emulator/0       # 内部存储
+/storage/emulator/private # sdcard存储
+/data/local/tmp # 目前发现就该目录有执行cpp程序的权限
+# 系统文件系统一般都是制作的img,只有可读权限
+# 一般存储空间，无法修改cpp程序的权限，chown/chmod即使root也无法修改(暂)
+```
+
+## 交叉编译
+
+It's recommended to use default toolchain(ndk) in android sdk.
+
