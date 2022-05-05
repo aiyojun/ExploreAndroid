@@ -16,8 +16,9 @@ aapt2 link -o ExploreAndroid.res.apk -I $ANDROID_SDK_ROOT/platforms/android-32/a
 
 ### 3. compilation - javac & dx
 javac -classpath $ANDROID_SDK_ROOT/platforms/android-32/android.jar src/main/java/com/jpro/MainActivity.java ./gen/com/jpro/R.java -d ./build
-#
-dx --dex --output=./classes.dex ./build
+### convert java bytecode to dex
+# dx --dex --output=./classes.dex ./build  # dx is deprecated now in android-32
+$ANDROID_SDK_ROOT/build-tools/32.0.0/d8 ./build/com/jpro/* --lib $ANDROID_SDK_ROOT/platforms/android-32/android.jar 
 
 ### 4. package
 java -cp $ANDROID_SDK_ROOT/tools/lib/sdklib-26.0.0-dev.jar com.android/sdklib/build/ApkBuilderMain ExploreAndroid.apk -v -u -z ./ExploreAndroid.res.apk -f ./classes.dex
