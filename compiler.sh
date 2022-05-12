@@ -17,8 +17,9 @@ android_version="android-${api_level}"
 dep_res=""
 lib_dir="/opt/jpro/CustomLanguage/.gradle/caches"
 deps="constraintlayout-2.1.3;jetified-appcompat-resources-1.4.1;appcompat-1.4.1;core-1.7.0"
+libs="/opt/jpro/CustomLanguage/.gradle/caches/modules-2/files-2.1/androidx.constraintlayout/constraintlayout-core/1.0.3/e3b33a654966aaf882b869e9aad3fa2113264c61/constraintlayout-core-1.0.3.jar"
 
-getAllFiles() {
+GetAllFiles() {
   files=$(find $1 -iname "*" | tr -s "\n" " ")
   for file_one in ${files}
   do
@@ -29,7 +30,7 @@ getAllFiles() {
   done
 }
 
-getFiles() {
+GetFiles() {
   find $1 -iname "*\.$2" | grep -v "AndroidManifest\.xml" | tr -s "\n" " "
 }
 
@@ -48,12 +49,6 @@ CheckPoint() {
       LogFailed $*
       exit $last
     fi
-}
-
-compileDependencyAsset() {
-  rm -rf build/res_$1 && mkdir -p build/res_$1
-  $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 compile $(getAllFiles $2/$1/res) -o build/res_$1
-  dep_res="${dep_res} build/res_$1/*flat"
 }
 
 findModule() {
@@ -94,14 +89,14 @@ compileLibraryResource() {
   else
     rm -rf build/tmp/*
   fi
-  $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 compile $(getAllFiles ${path_}/res) -o build/tmp
+  $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 compile $(GetAllFiles ${path_}/res) -o build/tmp
   CheckPoint aapt2 compile ${module}
   $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 link \
     -o build/tmp/${module}.res.apk \
     -I $ANDROID_SDK_ROOT/platforms/${android_version}/android.jar \
     --manifest ${path_}/AndroidManifest.xml \
     --java build/res build/tmp/*flat
-  LogOk "  ${module}:res"
+  LogOk "dep:${module}:res"
   rm -rf build/tmp
 }
 
@@ -140,7 +135,7 @@ compile() {
   if [ ! -e build/release/dex ]; then mkdir -p build/release/dex; fi;
   if [ ! -e build/classes ]; then mkdir -p build/classes; fi;
 
-  $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 compile $(getAllFiles app/src/main/res) -o build/res
+  $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 compile $(GetAllFiles app/src/main/res) -o build/res
   CheckPoint "app:res:compile"
   $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 link \
     -o build/res/${app}.res.apk \
@@ -150,21 +145,25 @@ compile() {
   CheckPoint "app:res:link"
   LogOk "app:res"
   compileLibraryResource constraintlayout-2.1.3
-  deppth=$(findLibraryJar $deps):/opt/jpro/CustomLanguage/.gradle/caches/modules-2/files-2.1/androidx.constraintlayout/constraintlayout-core/1.0.3/e3b33a654966aaf882b869e9aad3fa2113264c61/constraintlayout-core-1.0.3.jar
+  deppth=$(findLibraryJar $deps):$libs
   clspth=$ANDROID_SDK_ROOT/platforms/${android_version}/android.jar:${deppth}
-  javac -classpath $clspth $(getFiles app/src java) $(getFiles build/res java) -d build/classes
+  javac -classpath $clspth $(GetFiles app/src java) $(GetFiles build/res java) -d build/classes
   CheckPoint "app:java"
   LogOk "app:java"
-  echo "d8, The stage will take long time, please wait ..."
+  echo "------------------------------"
+  echo "d8"
+  echo "The stage will take long time."
+  echo "Please wait ..."
+  echo "------------------------------"
   ### The '--min-api' will force to replace the min-api of AndroidManifest.xml.
   $ANDROID_SDK_ROOT/build-tools/32.0.0/d8 \
-    $(getFiles build/classes class) $(splitPath $deppth) \
+    $(GetFiles build/classes class) $(splitPath $deppth) \
     --intermediate --file-per-class \
     --lib $ANDROID_SDK_ROOT/platforms/${android_version}/android.jar \
     --min-api 30 \
     --output build/intermediate/dex
   CheckPoint "app:dex:inc"
-  $ANDROID_SDK_ROOT/build-tools/32.0.0/d8 $(getFiles build/intermediate/dex dex) --release --output build/release/dex
+  $ANDROID_SDK_ROOT/build-tools/32.0.0/d8 $(GetFiles build/intermediate/dex dex) --release --output build/release/dex
   CheckPoint "app:dex:release"
   LogOk "app:dex"
   java -cp $ANDROID_SDK_ROOT/tools/lib/sdklib-26.0.0-dev.jar com.android/sdklib/build/ApkBuilderMain build/${app}.apk \
@@ -183,11 +182,12 @@ compile() {
 
 compileAsset() {
   if [ ! -e build/res ]; then mkdir -p build/res; fi;
-  $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 compile $(getFiles app/src xml) $(getFiles app/src png) -o build/res
+  $ANDROID_SDK_ROOT/build-tools/32.0.0/aapt2 compile $(GetFiles app/src xml) $(GetFiles app/src png) -o build/res
   CheckPoint "app:res"
   LogOk "app:res"
 }
 
+# main entry
 if [ $# -eq "0" ]
 then
   echo "${app}:"
