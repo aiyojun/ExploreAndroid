@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="10dp"
+      android:orientation="vertical"
+>
+
+    <android.widget.LinearLayout
+            android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="10dp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Home Assistant"
+                  android:textSize="24sp"
+                  android:textFontWeight="800"
+        />
+    </android.widget.LinearLayout>
+
+    <android.widget.LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+    >
+        <ImageView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_action_name"
+                android:contentDescription="open_light"/>
+        <Space android:layout_width="5dp"
+               android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_action_name"
+                android:contentDescription="open_light"/>
+    </android.widget.LinearLayout>
+
+    <Button
+            android:id="@+id/http_get"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="Http Get">
+    </Button>
+    <ListView
+            android:id="@+id/cardList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+</android.widget.LinearLayout>

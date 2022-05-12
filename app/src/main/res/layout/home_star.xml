@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/homeStar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:paddingTop="20dp"
+            android:layout_height="74dp"
+            android:background="@drawable/bg_gradient"
+            android:paddingHorizontal="20dp"
+            android:gravity="center_vertical"
+    >
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+        >
+            <ImageView
+                    android:id="@+id/header_image"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="#FFFFFF"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/cutecat"
+            />
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:layout_weight="3"
+                      android:gravity="center"
+        >
+            <TextView
+                    android:id="@+id/header_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stars Picking"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/alliance"
+                    android:textFontWeight="100"
+                    android:textColor="#EEEEEE"
+            />
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end">
+            <ImageView
+                    android:id="@+id/header_controller"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/bar_module"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
+                    android:contentDescription="Avatar"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
