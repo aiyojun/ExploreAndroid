@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.jpro">
+		  package="com.jpro">
+
+	<uses-sdk
+			android:targetSdkVersion="31"
+			android:minSdkVersion="29"/>
+
+	<uses-permission android:name="android.permission.INTERNET"/>
 
 	<application
-		android:label="ExploreAndroid"
-        android:allowBackup="true"
-        android:supportsRtl="true"
-        android:extractNativeLibs="false">
-		
-		<activity 
-			android:name="com.jpro.MainActivity"
+			android:icon="@mipmap/star_launcher"
+			android:roundIcon="@mipmap/star_launcher_round"
+			android:label="StarsPicking"
+			android:supportsRtl="true"
+			android:extractNativeLibs="false"
+			android:usesCleartextTraffic="true">
+		<activity
+			android:name="com.jpro.StarsPickingActivity"
 			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
@@ -17,5 +24,5 @@
 			</intent-filter>
 		</activity>
 	</application>
-	
+
 </manifest>
