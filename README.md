@@ -83,3 +83,8 @@ $ANDROID_SDK_ROOT/tools/bin/avdmanager delete avd -n the12
 
 It's recommended to use default toolchain(ndk) in android sdk.
 
+## FAQ
+
+### Gradle下载com.android.application plugin(android开发插件)失败原因
+答: 不要使用JDK8，最新android插件使用JDK11！Gradle报下载错误，需要查看详细日志，才能看到Jave版本不对。
+
