@@ -88,3 +88,6 @@ It's recommended to use default toolchain(ndk) in android sdk.
 ### Gradle下载com.android.application plugin(android开发插件)失败原因
 答: 不要使用JDK8，最新android插件使用JDK11！Gradle报下载错误，需要查看详细日志，才能看到Jave版本不对。
 
+### Android Emulator点击extended controls按钮后，模拟器日志出现--no-sandbox，并segmentation fault的原因
+答：之前版本不会出现该问题，近期(2022.9)更新之后，需要导出环境变量 QTWEBENGINE_DISABLE_SANDBOX=1
+
