@@ -91,3 +91,5 @@ It's recommended to use default toolchain(ndk) in android sdk.
 ### Android Emulator点击extended controls按钮后，模拟器日志出现--no-sandbox，并segmentation fault的原因
 答：之前版本不会出现该问题，近期(2022.9)更新之后，需要导出环境变量 QTWEBENGINE_DISABLE_SANDBOX=1
 
+### Android Emulator设置proxy不生效？
+答：Network type选用5G模式
