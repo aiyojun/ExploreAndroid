@@ -53,6 +53,12 @@ adb shell pm install ./ExploreAndroid.apk      # pm命令可用于安装卸载
 adb shell pm uninstall com.jpro # 卸载
 adb shell am start -n com.jpro/com.jpro.MainActivity # 运行app
 adb shell pm list package # 列出安装的app包名
+
+
+### 获取已安装应用的apk
+adb logcat | grep -i activity                  # 打开app,查看app对应activity
+adb shell pm list package | grep xxx           # 查看对应包名及完整路径
+adb shell cat /data/app/.../xxx.apk >./app.apk # 拉取到本地系统
 ```
 
 ## commands for emulator
